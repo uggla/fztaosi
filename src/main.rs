@@ -3,6 +3,7 @@ use macroquad::prelude::*;
 use screen::center;
 
 const MAX_SIZE: f32 = 8.0;
+const MAX_STAR: usize = 200;
 
 struct Star {
     pos: Vec2,
@@ -48,6 +49,7 @@ impl Star {
         if self.pos.x.abs() > screen_width() / 2.0 || self.pos.y.abs() > screen_height() / 2.0 {
             self.pos = Vec2::ZERO;
             self.vel = gen_vel();
+            self.color = BLACK;
         }
     }
 }
@@ -60,14 +62,23 @@ fn gen_vel() -> Vec2 {
 async fn main() {
     rand::srand(miniquad::date::now() as u64);
 
-    let mut star = Star::new();
+    let mut starfield: Vec<Star> = Vec::new();
+    let mut nstar = 0;
 
     loop {
         clear_background(BLACK);
-        // draw_circle(center.x, center.y, 3.0, WHITE);
-        star.update_pos();
-        star.draw();
+        if nstar < MAX_STAR {
+            starfield.push(Star::new());
+            nstar += 1;
+        }
 
+        for star in &mut starfield {
+            star.update_pos();
+        }
+
+        for star in &starfield {
+            star.draw();
+        }
         next_frame().await
     }
 }
