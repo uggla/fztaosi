@@ -26,21 +26,45 @@ impl Text {
         letters
     }
 
-    pub fn draw(&mut self) {
+    pub fn draw(
+        &mut self,
+        delta: f32,
+        speed: f32,
+        offset_y: f32,
+        sinus: bool,
+        color: Color,
+        rainbow: bool,
+    ) {
+        let rainbow_colors: Vec<Color> = vec![RED, ORANGE, YELLOW, GREEN, BLUE, VIOLET, PINK];
+        let mut rainbow_color = rainbow_colors.iter().cycle();
         let letters = self.split_text();
         let mut letter_posx = self.scroll_posx;
+        let mut letter_posy;
         for letter in letters {
+            if sinus {
+                letter_posy = screen_height() / 6.0 * (0.006 * letter_posx).sin() + offset_y;
+            } else {
+                letter_posy = offset_y;
+            }
             let dimtext = measure_text(&letter, Option::Some(self.font), self.font_size, 1.0);
-            self.draw_letter(letter, Vec2::new(letter_posx, screen_height() / 2.0 - 10.0));
+            if rainbow {
+                self.draw_letter(
+                    letter,
+                    Vec2::new(letter_posx, letter_posy),
+                    rainbow_color.next().unwrap().to_owned(),
+                );
+            } else {
+                self.draw_letter(letter, Vec2::new(letter_posx, letter_posy), color);
+            }
             letter_posx += dimtext.width;
         }
-        self.scroll_posx -= 10.0;
+        self.scroll_posx -= speed * delta;
         if letter_posx < -screen_width() / 2.0 {
             self.scroll_posx = screen_width() / 2.0;
         }
     }
 
-    fn draw_letter(&self, letter: String, pos: Vec2) {
+    fn draw_letter(&self, letter: String, pos: Vec2, color: Color) {
         let center = center();
         let pos = center + pos;
         draw_text_ex(
@@ -50,7 +74,7 @@ impl Text {
             TextParams {
                 font_size: self.font_size,
                 font: self.font,
-                color: RED,
+                color,
                 ..Default::default()
             },
         );
