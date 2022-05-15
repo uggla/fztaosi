@@ -1,18 +1,22 @@
+mod balls;
 mod screen;
 mod stars;
 mod text;
 
+use balls::Balls;
 use macroquad::prelude::*;
 use stars::Starfield;
 use text::Text;
 
-#[macroquad::main("Intro")]
+#[macroquad::main("From zero to an old scholl intro")]
 async fn main() {
     rand::srand(miniquad::date::now() as u64);
 
     let mut starfield = Starfield::new();
-    let mut text = Text::new("THIS IS AN OLD SCHOOL SINUS SCROLL !!!    ENJOY IT...    GREETINGS TO ROSE - TAUPIE - MENTHE...", 70).await;
-    let mut text2 = Text::new("HORIZONTAL SCROLLING...", 70).await;
+    let mut text = Text::new("THIS IS AN OLD SCHOOL SINUS SCROLL DONE WITH RUST AND MACROQUAD !!!    ENJOY IT...    LAB: FROM ZERO TO AN OLD SCHOLL INTRO    GREETINGS TO ROSE - TAUPIE - MENTHE...", 70).await;
+    let mut text2 = Text::new("THANKS TO BE HERE WITH US AT FLOSSCON 2022...", 75).await;
+    let mut balls = Balls::new(0.2).await;
+    let mut counter = 0.0;
 
     loop {
         let delta = get_frame_time();
@@ -22,13 +26,16 @@ async fn main() {
         starfield.update();
         starfield.draw();
 
+        balls.draw(counter);
+        counter += 0.035;
+
         text.draw(delta, 400.0, 0.0, true, RED, true);
         text2.draw(
             delta,
             200.0,
             screen_height() / 2.0 - 10.0,
             false,
-            RED,
+            DARKBLUE,
             false,
         );
         println!("fps: {}", get_fps());
