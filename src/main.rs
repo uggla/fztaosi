@@ -1,10 +1,12 @@
 mod balls;
+mod music;
 mod screen;
 mod stars;
 mod text;
 
 use balls::Balls;
 use macroquad::prelude::*;
+use music::music;
 use stars::Starfield;
 use text::Text;
 
@@ -17,8 +19,11 @@ async fn main() {
     let mut text2 = Text::new("THANKS TO BE HERE WITH US AT FLOSSCON 2022...", 75).await;
     let mut balls = Balls::new(0.2).await;
     let mut counter = 0.0;
+    let mut music_ready = false;
 
     loop {
+        music(&mut music_ready).await;
+
         let delta = get_frame_time();
         clear_background(BLACK);
 
