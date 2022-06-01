@@ -80,3 +80,21 @@ impl Text {
         );
     }
 }
+
+#[cfg(test)]
+#[allow(clippy::mut_mutex_lock)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn fake_test() {
+        assert_eq!(1, 1);
+    }
+
+    #[macroquad::test]
+    async fn split_text_test() {
+        let text = Text::new("Hello", 100).await;
+        let letters = text.split_text();
+        assert_eq!(letters, vec!["H", "e", "l", "l", "o"]);
+    }
+}
