@@ -155,10 +155,21 @@ Lab steps:
     * Use standard loop with indices for rainbow loop.
     * Refactor loop to use an iterator and cycle.
     * Add a unitary test.
+    ```rust
+    #[cfg(test)]
+    mod tests {
+        use super::*;
+
+        #[test]
+        fn fake_test(){
+            assert_eq!(1,1);
+        }
+    ```
 
 18. Add balls / ferris (if time)
 
 19. Add music
+    * Show diff beetween cargo build and cargo build --release
 
 20. Show a debug session with gdb. (if time)
 
