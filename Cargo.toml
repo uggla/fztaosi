@@ -2,11 +2,26 @@
 name = "fztaosi"
 version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+description = "Old school intro"
+license = "Apache-2.0"
 
 [dependencies]
 macroquad = "0.3.15"
 
 [profile.dev]
 debug=true
+
+[profile.release]
+strip = true
+opt-level = "z"
+lto = true
+panic = "abort"
+
+[package.metadata.rpm]
+package = "fztaosi"
+
+[package.metadata.rpm.cargo]
+buildflags = ["--release"]
+
+[package.metadata.rpm.targets]
+fztaosi = { path = "/usr/bin/fztaosi" }

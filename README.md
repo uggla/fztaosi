@@ -3,11 +3,81 @@
 This is a live demo/lab to discover Rust smoothly by creating an
 [intro](https://en.wikipedia.org/wiki/Crack_intro).
 
-Disclaimer, no work like striping will be done to reduce the size of the
-produced binary and meet the usual binary size of such a program.
-However this could be done in a future release.
+Options have been passed to Cargo.toml to reduce the size of the binary.
+As well all assets are embedded into the binary to deploy it easilly.
+A rpm can be built for the project using `cargo rpm build`.
 
-Lab steps:
+## Authors
+
+- [@Uggla](https://www.github.com/Uggla)
+
+## Run Locally (mainly for development purposes)
+
+1. Clone the project
+
+```bash
+  git clone https://github.com/uggla/fztaosi
+```
+
+2. Go to the project directory
+
+```bash
+  cd fztaosi
+```
+
+### Native
+1. Install Rust following the instructions [here](https://www.rust-lang.org/fr/learn/get-started).
+
+   *Tips: the rustup method is the simplest one.*
+
+2. Install required library for macroquad
+
+* Ubuntu system dependencies
+```bash
+apt install pkg-config libx11-dev libxi-dev libgl1-mesa-dev libasound2-dev
+```
+
+* Fedora system dependencies
+```bash
+dnf install libX11-devel libXi-devel mesa-libGL-devel alsa-lib-devel
+```
+
+* Windows and MacOS system
+```
+No dependencies are required for Windows or MacOS
+```
+
+3. Run
+```bash
+cargo run --release
+```
+
+#### Wasm32 client
+
+1. Follow the above instruction of the native build.
+
+2. Install basic-http-server
+```bash
+cargo install basic-http-server
+```
+
+3. Add the wasm32 compilation target
+```bash
+rustup target add wasm32-unknown-unknown
+```
+
+4. Run
+```bash
+cargo build --target wasm32-unknown-unknown --release
+```
+
+5. Serve the files and open the browser
+```bash
+basic-http-server
+xdg-open http://127.0.0.1:4000
+```
+
+## Lab steps:
 
 1. Welcome, goal of the lab
     * Show that rust is not so difficult

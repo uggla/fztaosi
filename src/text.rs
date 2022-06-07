@@ -9,11 +9,14 @@ pub struct Text {
 }
 
 impl Text {
-    pub async fn new(msg: &str, size: u16) -> Self {
+    pub fn new(msg: &str, size: u16) -> Self {
+        let font = include_bytes!("../fonts/origami.ttf");
+        let font = load_ttf_font_from_bytes(font).unwrap();
+
         Self {
             text: msg.to_string(),
             font_size: size,
-            font: load_ttf_font("fonts/origami.ttf").await.unwrap(),
+            font,
             scroll_posx: screen_width() / 2.0,
         }
     }
@@ -93,7 +96,7 @@ mod tests {
 
     #[macroquad::test]
     async fn split_text_test() {
-        let text = Text::new("Hello", 100).await;
+        let text = Text::new("Hello", 100);
         let letters = text.split_text();
         assert_eq!(letters, vec!["H", "e", "l", "l", "o"]);
     }

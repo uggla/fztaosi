@@ -10,7 +10,7 @@ impl Balls {
         let mut balls = Vec::new();
         let mut ball_delay = 0.0;
         for index in 0..8 {
-            let ball = Ball::new(ball_delay, index).await;
+            let ball = Ball::new(ball_delay, index);
             balls.push(ball);
             ball_delay += delay;
         }
@@ -31,15 +31,17 @@ pub struct Ball {
 }
 
 impl Ball {
-    async fn new(delay: f32, index: usize) -> Self {
-        let img = if index % 2 == 0 {
-            "images/ferris.png"
+    fn new(delay: f32, index: usize) -> Self {
+        let ferris = include_bytes!("../images/ferris.png");
+        let ball = include_bytes!("../images/ball.png");
+        let sprite = if index % 2 == 0 {
+            Texture2D::from_file_with_format(&ferris[..], None)
         } else {
-            "images/ball.png"
+            Texture2D::from_file_with_format(&ball[..], None)
         };
 
         Self {
-            sprite: load_texture(img).await.unwrap(),
+            sprite,
             pos: Vec2::ZERO,
             delay,
         }
