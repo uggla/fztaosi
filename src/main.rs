@@ -15,7 +15,12 @@ async fn main() {
     rand::srand(miniquad::date::now() as u64);
 
     let mut starfield = Starfield::new();
-    let mut text = Text::new("THIS IS AN OLD SCHOOL SINUS SCROLL DONE WITH RUST AND MACROQUAD !!!    ENJOY IT...    LAB: FROM ZERO TO AN OLD SCHOLL INTRO    GREETINGS TO ROSE - TAUPIE - MENTHE...", 70);
+    let mut text = Text::new(
+        "THIS IS AN OLD SCHOOL SINUS SCROLL DONE WITH RUST AND MACROQUAD !!!    \
+                              ENJOY IT...    LAB: FROM ZERO TO AN OLD SCHOLL INTRO    \
+                              GREETINGS TO ROSE - TAUPIE - MENTHE...",
+        70,
+    );
     let mut text2 = Text::new("THANKS TO BE HERE WITH US AT FLOSSCON 2022...", 75);
     let mut balls = Balls::new(0.2).await;
     let mut counter = 0.0;
