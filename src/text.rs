@@ -29,15 +29,7 @@ impl Text {
         letters
     }
 
-    pub fn draw(
-        &mut self,
-        delta: f32,
-        speed: f32,
-        offset_y: f32,
-        sinus: bool,
-        color: Color,
-        rainbow: bool,
-    ) {
+    pub fn draw(&mut self, speed: f32, offset_y: f32, sinus: bool, color: Color, rainbow: bool) {
         let rainbow_colors: Vec<Color> = vec![RED, ORANGE, YELLOW, GREEN, BLUE, VIOLET, PINK];
         let mut rainbow_color = rainbow_colors.iter().cycle();
         let letters = self.split_text();
@@ -61,7 +53,7 @@ impl Text {
             }
             letter_posx += dimtext.width;
         }
-        self.scroll_posx -= speed * delta;
+        self.scroll_posx -= speed;
         if letter_posx < -screen_width() / 2.0 {
             self.scroll_posx = screen_width() / 2.0;
         }

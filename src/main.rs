@@ -29,7 +29,6 @@ async fn main() {
     loop {
         music(&mut music_ready).await;
 
-        let delta = get_frame_time();
         clear_background(BLACK);
 
         starfield.add_star();
@@ -39,15 +38,8 @@ async fn main() {
         balls.draw(counter);
         counter += 0.035;
 
-        text.draw(delta, 400.0, 0.0, true, RED, true);
-        text2.draw(
-            delta,
-            200.0,
-            screen_height() / 2.0 - 10.0,
-            false,
-            DARKBLUE,
-            false,
-        );
+        text.draw(8.0, 0.0, true, RED, true);
+        text2.draw(4.0, screen_height() / 2.0 - 10.0, false, DARKBLUE, false);
         println!("fps: {}", get_fps());
         next_frame().await;
     }
