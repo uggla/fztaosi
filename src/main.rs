@@ -10,7 +10,7 @@ use music::music;
 use stars::Starfield;
 use text::Text;
 
-#[macroquad::main("From zero to an old scholl intro")]
+#[macroquad::main("From zero to an old school intro")]
 async fn main() {
     rand::srand(miniquad::date::now() as u64);
 
