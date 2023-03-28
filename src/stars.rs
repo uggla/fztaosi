@@ -17,6 +17,7 @@ impl Starfield {
         }
     }
 
+    /// Adds a star to the sky.
     pub fn add_star(&mut self) {
         if self.count < MAX_STARS {
             self.stars.push(Star::new());

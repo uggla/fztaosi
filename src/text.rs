@@ -142,6 +142,7 @@ impl Text {
 
 #[cfg(test)]
 #[allow(clippy::mut_mutex_lock)]
+#[allow(dead_code)]
 mod tests {
     use super::*;
 
@@ -152,7 +153,7 @@ mod tests {
 
     // #[macroquad::test]
     fn split_text_test() {
-        let text = Text::new("Hello", 100);
+        let text = Text::new("Hello", 100).build();
         let letters = text.split_text();
         assert_eq!(letters, vec!["H", "e", "l", "l", "o"]);
     }
