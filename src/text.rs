@@ -93,7 +93,7 @@ impl Text {
         letters
     }
 
-    pub fn draw(&mut self) {
+    pub fn draw(&mut self, frame_t: f32) {
         let rainbow_colors: Vec<Color> = vec![RED, ORANGE, YELLOW, GREEN, BLUE, VIOLET, PINK];
         let mut rainbow_color = rainbow_colors.iter().cycle();
         let letters = self.split_text();
@@ -117,7 +117,7 @@ impl Text {
             }
             letter_posx += dimtext.width;
         }
-        self.scroll_posx -= self.speed;
+        self.scroll_posx -= self.speed * frame_t;
         if letter_posx < -screen_width() / 2.0 {
             self.scroll_posx = screen_width() / 2.0;
         }
