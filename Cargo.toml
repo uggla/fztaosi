@@ -6,7 +6,7 @@ description = "Old school intro"
 license = "Apache-2.0"
 
 [dependencies]
-macroquad = "0.3.15"
+macroquad ="0.3.25"
 
 [profile.dev]
 debug=true
